@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import { Button, Card, CardContent, Typography } from '@material-ui/core';
+import getQuotes from './getQuotes';
+class App extends Component {
+	state = {
+		quote: '',
+		author: ''
+	};
+	handleClick = () => {
+		getQuotes().then((data) => {
+			console.log(data);
+		});
+	};
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	render() {
+		return (
+			<div className="app">
+				<Typography variant="h2">Radom Quote Generator</Typography>
+				<Card className="card">
+					<CardContent>
+						<Typography variant="h5">{this.state.quote}</Typography>
+						<Typography className="margin-top" color="textSecondary">
+							{this.state.author}
+						</Typography>
+						<hr />
+						<Button
+							className="margin-top"
+							color="primary"
+							variant="outlined"
+							onClick={() => this.handleClick()}
+						>
+							Get Quote
+						</Button>
+					</CardContent>
+				</Card>
+			</div>
+		);
+	}
 }
 
 export default App;
